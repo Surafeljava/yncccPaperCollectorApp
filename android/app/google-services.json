@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "949042457409",
+    "project_id": "pick-papers",
+    "storage_bucket": "pick-papers.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:949042457409:android:4484bcfb095b54cddacfc0",
+        "android_client_info": {
+          "package_name": "com.ynccc.collector.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "949042457409-d9k93fv72cpdfjlcpmifgliflem5pfrj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ynccc.collector.app",
+            "certificate_hash": "a507f55de73367bcc62b555f58c73c0a9e554061"
+          }
+        },
+        {
+          "client_id": "949042457409-46l0s7l6qbsvojm40rmmkr4p33hj1fmd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAe6zLouYaKC-FWgk0c1zUhSfVPGkQcyGc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "949042457409-46l0s7l6qbsvojm40rmmkr4p33hj1fmd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
