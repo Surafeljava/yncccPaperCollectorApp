@@ -53,9 +53,34 @@ class DatabaseService with ChangeNotifier{
     await userCollection.doc(_uid).set(_userModel.toJson());
   }
 
+  Future<void> updateUser(String userName, String photoUrl) async{
+    String _uid = FirebaseAuth.instance.currentUser.uid.toString();
+    await firestoreInstance.doc('collectors/$_uid').update({'name': userName, 'profilePictureURL': photoUrl});
+  }
+
   Future<UserModel> getMyInfo() async{
     String _uid = FirebaseAuth.instance.currentUser.uid.toString();
     var result = await firestoreInstance.collection('collectors').doc(_uid).get();
     return UserModel.fromJson(result);
   }
+
+
+  //Accept the request
+  Future<void> acceptTheRequest(String docId) async{
+    String _uid = FirebaseAuth.instance.currentUser.uid.toString();
+    DocumentReference reference = firestoreInstance.doc('collectors/$_uid');
+    await firestoreInstance.doc('recyclingRequests/$docId').update({'status': 1, 'dateOfAcceptance': DateTime.now(), 'acceptedByCollector': reference});
+    await firestoreInstance.doc('collectors/$_uid').update({'totalRequestsAccepted': FieldValue.increment(1)});
+  }
+
+  //Cancel a Request
+  Future<void> cancelRequest(String docId) async{
+    await firestoreInstance.doc('recyclingRequests/$docId').update({'status': 0, 'dateOfAcceptance': null, 'acceptedByCollector': null});
+  }
+
+  //Pick up the request
+  Future<void> pickUpRequest(String docId) async{
+    await firestoreInstance.doc('recyclingRequests/$docId').update({'status': 2});
+  }
+
 }

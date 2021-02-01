@@ -37,17 +37,21 @@ class _WrapperState extends State<Wrapper> {
       return Authenticate();
     }else{
       //TODO:Fix this if's
-      if(!tokenChecked){
-        return CheckToken();
-      }else{
-        checkUserInfo().then((value) {
-          setState(() {
-            registeredBefore = value;
-          });
-          setState(() {
-            checkingUser = true;
-          });
+
+      checkUserInfo().then((value) {
+        setState(() {
+          registeredBefore = value;
         });
+        setState(() {
+          checkingUser = true;
+        });
+      });
+
+      if(!tokenChecked && !registeredBefore && checkingUser){
+        return CheckToken();
+      }else if(!tokenChecked && !checkingUser){
+        return Connecting();
+      }else{
 
         if((registered || registeredBefore) && checkingUser){
           return Home();

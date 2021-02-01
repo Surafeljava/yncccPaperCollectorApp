@@ -1,4 +1,5 @@
 import 'package:app/screens/authenticate/tokenCheckState.dart';
+import 'package:app/screens/home/mainHome/mapState.dart';
 import 'package:app/screens/home/wrapper.dart';
 import 'package:app/screens/registration/registrationState.dart';
 import 'package:app/services/authService.dart';
@@ -26,6 +27,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => RegistrationState(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => MapState(),
         ),
       ],
       child: MaterialApp(

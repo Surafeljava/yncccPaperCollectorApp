@@ -189,8 +189,11 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         _uploadingWhat = 'User Information';
                       });
 
+
+                      var rating = {'1':0,'2':0, '3':0, '4':0, '5':0, 'ratedTimes':0, 'rating':0.0};
+
                       //Create UserModel
-                      UserModel myModel = new UserModel(dateOfSignUp: DateTime.now(), name: _nameController.text, phone: FirebaseAuth.instance.currentUser.phoneNumber.toString(), profilePictureURL: profileUrl, rating: 0.0, totalRequestsAccepted: 0);
+                      UserModel myModel = new UserModel(dateOfSignUp: DateTime.now(), name: _nameController.text, phone: FirebaseAuth.instance.currentUser.phoneNumber.toString(), profilePictureURL: profileUrl, rating: rating, totalRequestsAccepted: 0);
 
 
                       //Upload User data to the database

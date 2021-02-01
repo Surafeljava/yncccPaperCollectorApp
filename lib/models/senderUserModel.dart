@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 
-class UserModel{
+class SenderUserModel{
   final DateTime dateOfSignUp;
   final String name;
   final String phone;
@@ -8,7 +8,7 @@ class UserModel{
   final Map<String,dynamic> rating;
   final int totalRequestsAccepted;
 
-  UserModel({
+  SenderUserModel({
     @required this.dateOfSignUp,
     @required this.name,
     @required this.phone,
@@ -17,8 +17,8 @@ class UserModel{
     @required this.totalRequestsAccepted,
   });
 
-  factory UserModel.fromJson(dynamic json){
-    return UserModel(
+  factory SenderUserModel.fromJson(dynamic json){
+    return SenderUserModel(
       dateOfSignUp: DateTime.fromMicrosecondsSinceEpoch(json['dateOfSignUp'].microsecondsSinceEpoch),
       name: json['name'],
       phone: json['phone'],
@@ -37,5 +37,4 @@ class UserModel{
         'rating': rating,
         'totalRequestsAccepted': totalRequestsAccepted,
       };
-
 }
