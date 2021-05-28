@@ -21,7 +21,7 @@ class EditProfile extends StatefulWidget {
 }
 
 class _EditProfileState extends State<EditProfile> {
-  TextEditingController _nameController = new TextEditingController();
+  TextEditingController _nameController;
 
   String fullName = '';
 
@@ -51,6 +51,11 @@ class _EditProfileState extends State<EditProfile> {
       print('No image selected.');
       return false;
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
   }
 
   @override
@@ -93,7 +98,7 @@ class _EditProfileState extends State<EditProfile> {
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               fontSize: 16.0,
-                              color: Color(0x55002E49),
+                              color: Color(0xEE002E49),
                               fontWeight: FontWeight.w400),
                         ),
                         Spacer(),
@@ -304,52 +309,51 @@ class _EditProfileState extends State<EditProfile> {
 
                             if (_nameController.text.isEmpty) {
                               setState(() {
-                                error = true;
-                                errorMessage = 'Write your name';
+                                _nameController.text = user.name;
                               });
-                            } else {
-                              String profileUrl = '';
-                              if (_photo != null) {
-                                //set the uploading var true
-                                //set the _uploadingWhat var 'photo'
-                                setState(() {
-                                  _uploading = true;
-                                  _uploadingWhat = 'Profile Picture';
-                                });
-
-                                //Upload Picture
-                                String _uid = FirebaseAuth
-                                    .instance.currentUser.uid
-                                    .toString();
-                                profileUrl = await _databaseService
-                                    .uploadProfileImage(_photo, _uid);
-
-                                //set the uploading var true
-                                //set the _uploadingWhat var 'User Information'
-                                setState(() {
-                                  _uploading = true;
-                                  _uploadingWhat = 'User Information';
-                                });
-                              }
-
-                              //Upload User data to the database
-                              await _databaseService.updateUser(
-                                  _nameController.text.isEmpty
-                                      ? user.name
-                                      : _nameController.text,
-                                  _photo == null
-                                      ? user.profilePictureURL
-                                      : profileUrl);
-
-                              //Set the uploading var false
-                              //set the _uploadingWhat var ''
-                              setState(() {
-                                _uploading = false;
-                                _uploadingWhat = '';
-                              });
-
-                              Navigator.of(context).pop();
                             }
+
+                            String profileUrl = '';
+                            if (_photo != null) {
+                              //set the uploading var true
+                              //set the _uploadingWhat var 'photo'
+                              setState(() {
+                                _uploading = true;
+                                _uploadingWhat = 'Profile Picture';
+                              });
+
+                              //Upload Picture
+                              String _uid = FirebaseAuth
+                                  .instance.currentUser.uid
+                                  .toString();
+                              profileUrl = await _databaseService
+                                  .uploadProfileImage(_photo, _uid);
+
+                              //set the uploading var true
+                              //set the _uploadingWhat var 'User Information'
+                              setState(() {
+                                _uploading = true;
+                                _uploadingWhat = 'User Information';
+                              });
+                            }
+
+                            //Upload User data to the database
+                            await _databaseService.updateUser(
+                                _nameController.text.isEmpty
+                                    ? user.name
+                                    : _nameController.text,
+                                _photo == null
+                                    ? user.profilePictureURL
+                                    : profileUrl);
+
+                            //Set the uploading var false
+                            //set the _uploadingWhat var ''
+                            setState(() {
+                              _uploading = false;
+                              _uploadingWhat = '';
+                            });
+
+                            Navigator.of(context).pop();
                           },
                         ),
                         SizedBox(

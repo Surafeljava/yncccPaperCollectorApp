@@ -1,6 +1,7 @@
 import 'package:app/models/requestModel.dart';
 import 'package:app/screens/home/mainHome/mapState.dart';
 import 'package:app/services/databaseService.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoder/geocoder.dart';
@@ -122,12 +123,22 @@ class _RequestItemViewState extends State<RequestItemView> {
                   leading: Container(
                     height: 40.0,
                     width: 40.0,
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        image: DecorationImage(
-                            image: NetworkImage(
-                                snapshot.data['profilePictureURL']),
-                            fit: BoxFit.cover)),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20.0),
+                      child: CachedNetworkImage(
+                        imageUrl: snapshot.data['profilePictureURL'],
+                        progressIndicatorBuilder:
+                            (context, url, downloadProgress) => Center(
+                                child: Container(
+                          width: 35,
+                          height: 35,
+                          child: CircularProgressIndicator(
+                              value: downloadProgress.progress),
+                        )),
+                        errorWidget: (context, url, error) => Icon(Icons.error),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                   ),
                   trailing: IconButton(
                     icon: Icon(

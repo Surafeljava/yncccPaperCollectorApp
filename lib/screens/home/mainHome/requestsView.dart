@@ -87,7 +87,7 @@ class _RequestsViewState extends State<RequestsView> {
                   );
                 }
                 return Container(
-                  height: MediaQuery.of(context).size.height * 0.26,
+                  height: MediaQuery.of(context).size.height * 0.28,
                   child: Column(
                     children: [
                       Container(
@@ -120,6 +120,8 @@ class _RequestsViewState extends State<RequestsView> {
                                       snapshot.data.documents[index],
                                 ),
                               ),
+                              useCache: false,
+                              scaleCoefficient: 0.95,
                               onTap: () {
                                 Navigator.of(context).push(MaterialPageRoute(
                                     builder: (context) => RequestItemSingleView(
@@ -136,7 +138,7 @@ class _RequestsViewState extends State<RequestsView> {
                       Expanded(
                         child: SmoothPageIndicator(
                           controller: pageController,
-                          count: 6,
+                          count: snapshot.data.documents.length,
                           axisDirection: Axis.horizontal,
                           effect: SlideEffect(
                               spacing: 8.0,
